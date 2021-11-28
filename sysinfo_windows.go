@@ -78,7 +78,7 @@ func (c *sysInfoForWindows)CPU() (cpu *CPU, err error) {
 
 func (c *sysInfoForWindows)Memory() *Memory {
 	mem := windows.Memory()
-	return &Memory{Size: mem.TotalVisibleMemorySize}
+	return &Memory{Size: HumanFriendlyTraffic(mem.TotalVisibleMemorySize)}
 }
 
 func (c *sysInfoForWindows)System() (s *OS, err error) {
@@ -140,7 +140,7 @@ func (c *sysInfoForWindows)Disk() (elements []StorageDevice, err error) {
 		elements = append(elements, StorageDevice{
 			Model: v.Model,
 			Serial: strings.TrimSpace(v.SerialNumber),
-			Size: v.Size,
+			Size: HumanFriendlyTraffic(v.Size),
 		})
 	}
 

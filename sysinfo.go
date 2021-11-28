@@ -51,7 +51,7 @@ type Board struct {
 
 type Memory struct {
 	Vendor string `json:"vendor"`
-	Size uint64 `json:"size"`
+	Size string `json:"size"`
 }
 
 type StorageDevice struct {
@@ -59,12 +59,36 @@ type StorageDevice struct {
 	Vendor string `json:"vendor"`
 	Model string `json:"model"`
 	Serial string `json:"serial"`
-	Size uint64 `json:"size"`
+	Size string `json:"size"`
 }
 
 type NetworkDevice struct {
 	Name string `json:"name"`
 	MAC string `json:"mac"`
+}
+
+const (
+	KB = 1024
+	MB = KB * 1024
+	GB = MB * 1024
+	TB = GB * 1024
+	PB = TB * 1024
+)
+
+func HumanFriendlyTraffic(bytes uint64) string {
+	if bytes <= KB {
+		return fmt.Sprintf("%d B", bytes)
+	}
+	if bytes <= MB {
+		return fmt.Sprintf("%.2f KB", float32(bytes)/KB)
+	}
+	if bytes <= GB {
+		return fmt.Sprintf("%.2f MB", float32(bytes)/MB)
+	}
+	if bytes <= TB {
+		return fmt.Sprintf("%.2f GB", float32(bytes)/GB)
+	}
+	return fmt.Sprintf("%.2f TB", float32(bytes)/TB)
 }
 
 func (c *SysInfo)ToJSON() string {
