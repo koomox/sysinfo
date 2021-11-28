@@ -68,11 +68,11 @@ type NetworkDevice struct {
 }
 
 const (
-	KB = 1024
-	MB = KB * 1024
-	GB = MB * 1024
-	TB = GB * 1024
-	PB = TB * 1024
+	KB = 1000
+	MB = KB * 1000
+	GB = MB * 1000
+	TB = GB * 1000
+	PB = TB * 1000
 )
 
 func HumanFriendlyTraffic(bytes uint64) string {
