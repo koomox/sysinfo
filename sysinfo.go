@@ -68,11 +68,14 @@ type NetworkDevice struct {
 }
 
 const (
-	KB = 1000
-	MB = KB * 1000
-	GB = MB * 1000
-	TB = GB * 1000
-	PB = TB * 1000
+	KB = 1024
+	MB = KB * 1024
+	GB = MB * 1024
+	TB = GB * 1024
+	KiB = 1000
+	MiB = KiB * 1000
+	GiB = MiB * 1000
+	TiB = GiB * 1000
 )
 
 func HumanFriendlyTraffic(bytes uint64) string {
@@ -89,6 +92,22 @@ func HumanFriendlyTraffic(bytes uint64) string {
 		return fmt.Sprintf("%.2f GB", float32(bytes)/GB)
 	}
 	return fmt.Sprintf("%.2f TB", float32(bytes)/TB)
+}
+
+func HumanFriendlySize(bytes uint64) string {
+	if bytes <= KiB {
+		return fmt.Sprintf("%v B", bytes)
+	}
+	if bytes <= MiB {
+		return fmt.Sprintf("%v KB", int(bytes/KiB))
+	}
+	if bytes <= GiB {
+		return fmt.Sprintf("%v MB", int(bytes/MiB))
+	}
+	if bytes <= TiB {
+		return fmt.Sprintf("%v GB", int(bytes/GiB))
+	}
+	return fmt.Sprintf("%v TB", int(bytes/TiB))
 }
 
 func (c *SysInfo)ToJSON() string {

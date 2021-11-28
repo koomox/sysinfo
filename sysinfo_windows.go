@@ -140,7 +140,7 @@ func (c *sysInfoForWindows)Disk() (elements []StorageDevice, err error) {
 		elements = append(elements, StorageDevice{
 			Model: v.Model,
 			Serial: strings.TrimSpace(v.SerialNumber),
-			Size: HumanFriendlyTraffic(v.Size),
+			Size: HumanFriendlySize(v.Size),
 		})
 	}
 
